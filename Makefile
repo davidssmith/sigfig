@@ -3,17 +3,14 @@ ifeq ($(PREFIX),)
 endif
 
 CC=cc
-CFLAGS=-O2 -g
+CFLAGS=-I. -O2
 LFLAGS=-lm
 
-objects = sigfig.o
+sigfig: sigfig.o
+	     $(CC) -o sigfig sigfig.o $(LFLAGS)
 
-all: sigfig
-
-sigfig: $(objects)
-	$(CC) $(objects) -o sigfig $(LFLAGS)
 %.o: %.c
-	$(CC) $(CFLAGS) -dc $< -o $@ $(LFLAGS)
+	$(CC) $(CFLAGS) -c $< $(LFLAGS)
 
 clean:
 	rm -f *.o sigfig
