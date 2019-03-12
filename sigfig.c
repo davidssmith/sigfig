@@ -34,12 +34,18 @@ main (int argc, char *argv[])
 {
 	assert(argc >= 2);
 	double x = atof(argv[1]);
+	char *n;
 
-	if (argc > 2)
-		printf("%s\n", sigfig(x, atoi(argv[2])));
-	else
-		for (int i = 0; i < 10; ++i)
-			printf("%2d: %s\n", i, sigfig(x, i));
+	if (argc > 2) {
+		n = sigfig(x, atoi(argv[2]));
+		printf("%s\n", n);
+		free(n);
+	} else
+		for (int i = 0; i < 10; ++i) {
+			char *n = sigfig(x, i);
+			printf("%2d: %s\n", i, n);
+			free(n);
+		}
 
 	return 0;
 }
