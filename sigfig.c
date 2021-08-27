@@ -29,6 +29,19 @@ sigfig (const double x, const int sigfigs)
 }
 
 
+void
+test(const double x)
+{
+	const int MAX_DIG = 15;
+	for (int i = 0; i < MAX_DIG; ++i) {
+		char *n = sigfig(NAN, i);
+		printf("%2d: %s\n", i, n);
+	}
+}
+
+
+
+
 int
 main (int argc, char *argv[])
 {
@@ -40,13 +53,15 @@ main (int argc, char *argv[])
 		n = sigfig(x, atoi(argv[2]));
 		printf("%s\n", n);
 		free(n);
-	} else
+	} else {
+		test(NAN);
+		test(INFINITY);
 		for (int i = 0; i < 10; ++i) {
 			char *n = sigfig(x, i);
 			printf("%2d: %s\n", i, n);
 			free(n);
 		}
-
+	}
 	return 0;
 }
 
